@@ -55,8 +55,8 @@
     <h1 class="text-2xl font-bold text-center mb-4 text-yellow-400">Compound Interest Calculator</h1>
     <h6 class="text-xs font-bold text-center mb-4 text-gray-400">Brought to you by Klement Marais</h6>
 
-    <!-- Preset selector -->
-    <div class="mb-4">
+    <!-- PRESET SECTION: HIDDEN UNTIL PASSWORD -->
+    <div id="presetContainer" class="mb-4 hidden">
       <label class="block text-sm font-medium text-gray-300">Select Preset</label>
       <select id="presetSelect" onchange="loadPreset()" class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
         <option value="none">Select a Preset</option>
@@ -66,6 +66,15 @@
       </select>
     </div>
 
+    <!-- PASSWORD INPUT: WILL BE HIDDEN AFTER UNLOCK -->
+    <div id="passwordContainer" class="mb-4">
+      <label class="block text-sm font-medium text-gray-300">Unlock Presets (password)</label>
+      <input type="password" id="presetPassword" placeholder="Enter password"
+             class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+             onkeyup="checkPresetPassword(event)">
+    </div>
+    <!-- END PRESET SECTION -->
+
     <!-- Main calculator form -->
     <form id="calcForm" class="space-y-4">
       <div>
@@ -74,32 +83,27 @@
                onfocus="unformatInput(this)" onblur="formatInput(this)"
                class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
       </div>
-
       <div>
         <label class="block text-sm font-medium text-gray-300" id="yearsLabel">Years Invested (1 Year)</label>
         <input type="range" id="years" value="1" min="1" max="50" step="1"
                oninput="updateYearsDisplay(this.value)" class="mt-1 block w-full">
       </div>
-
       <div>
         <label class="block text-sm font-medium text-gray-300">Monthly Contribution (R)</label>
         <input type="text" id="monthlyContribution" value="0" pattern="[0-9\s]*"
                onfocus="unformatInput(this)" onblur="formatInput(this)"
                class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
       </div>
-
       <div>
         <label class="block text-sm font-medium text-gray-300" id="rateLabel">Annual Growth Rate (15%)</label>
-        <input type="range" id="rate" value="17" min="5" max="25" step="1"
+        <input type="range" id="rate" value="17" min="4" max="35" step="1"
                oninput="updateRateDisplay(this.value)" class="mt-1 block w-full">
       </div>
-
       <div>
         <label class="block text-sm font-medium text-gray-300" id="inflationRateLabel">Inflation Rate (6%)</label>
-        <input type="range" id="inflationRate" value="6" min="5" max="10" step="1"
+        <input type="range" id="inflationRate" value="6" min="4" max="10" step="1"
                oninput="updateInflationRateDisplay(this.value)" class="mt-1 block w-full">
       </div>
-
       <button type="button" onclick="calculate()"
               class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">
         Calculate
@@ -183,7 +187,6 @@
             </table>
           </div>
         </details>
-
         <!-- Interest table -->
         <details class="mt-6 bg-gray-700 rounded-lg">
           <summary class="p-3 text-md font-semibold text-yellow-400 cursor-pointer hover:bg-gray-600 rounded-lg">Interest Breakdown</summary>
@@ -200,7 +203,6 @@
             </table>
           </div>
         </details>
-
         <!-- Post-tax interest table -->
         <details class="mt-6 bg-gray-700 rounded-lg">
           <summary class="p-3 text-md font-semibold text-yellow-400 cursor-pointer hover:bg-gray-600 rounded-lg">Post-Tax Interest Breakdown</summary>
@@ -225,7 +227,6 @@
       <summary class="p-3 text-md font-semibold text-yellow-400 cursor-pointer hover:bg-gray-600 rounded-lg">
         Interest Comparison Test
       </summary>
-
       <div class="p-3 space-y-4">
         <!-- Inputs -->
         <div>
@@ -234,19 +235,16 @@
                  onfocus="unformatInput(this)" onblur="formatInput(this)"
                  class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
         </div>
-
         <div>
           <label class="block text-sm font-medium text-gray-300">First Rate (%)</label>
           <input type="number" id="compRate1" value="7" min="0" max="100" step="0.1"
                  class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
         </div>
-
         <div>
-          <label class="block text-sm font-medium text-gray-300">Second Rate(%)</label>
+          <label class="block text-sm font-medium text-gray-300">Second Rate (%)</label>
           <input type="number" id="compRate2" value="20" min="0" max="100" step="0.1"
                  class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
         </div>
-
         <div>
           <label class="block text-sm font-medium text-gray-300">Years</label>
           <input type="range" id="compYears" value="10" min="1" max="50" step="1"
@@ -254,20 +252,17 @@
                  class="mt-1 block w-full">
           <p id="compYearsLabel" class="text-xs text-gray-400 text-center">Years: 10</p>
         </div>
-
         <!-- Monthly compounding toggle -->
         <div class="flex items-center justify-center text-xs text-gray-400">
           <label>
-            <input type="checkbox" id="compMonthly" checked onchange="calculateComparison()"> 
+            <input type="checkbox" id="compMonthly" checked onchange="calculateComparison()">
             Monthly compounding (matches main calculator)
           </label>
         </div>
-
         <button type="button" onclick="calculateComparison()"
                 class="w-full bg-purple-600 text-white p-2 rounded-md hover:bg-purple-700">
           Compare Rates
         </button>
-
         <!-- Summary -->
         <div id="comparisonResults" class="mt-4 hidden text-center space-y-1 text-sm">
           <p><strong>After <span id="finalYear"></span> years:</strong></p>
@@ -275,15 +270,13 @@
           <p><span id="rate2Label"></span>: <span id="finalValue2" class="text-red-400"></span></p>
           <p class="text-yellow-300"><strong>Difference:</strong> <span id="difference"></span></p>
         </div>
-
         <!-- Show-all checkbox -->
         <div class="mt-4 flex items-center justify-center">
           <label class="text-sm font-medium text-gray-300">
             <input type="checkbox" id="compShowAllYears" onchange="calculateComparison()"> Show All Years
           </label>
         </div>
-
-        <!-- Table -->
+        <!-- Table with Difference Column -->
         <div id="comparisonTable" class="mt-4 hidden overflow-x-auto">
           <table class="w-full text-xs sm:text-sm border border-gray-600 table-auto">
             <thead class="bg-gray-700">
@@ -291,6 +284,7 @@
                 <th class="p-2 sm:p-3 border border-gray-600 text-center text-white min-w-[50px]">Year</th>
                 <th class="p-2 sm:p-3 border border-gray-600 text-center text-white min-w-[100px]"><span id="col1Label"></span></th>
                 <th class="p-2 sm:p-3 border border-gray-600 text-center text-white min-w-[100px]"><span id="col2Label"></span></th>
+                <th class="p-2 sm:p-3 border border-gray-600 text-center text-white min-w-[100px]">Difference</th>
               </tr>
             </thead>
             <tbody id="comparisonTableBody" class="text-center"></tbody>
@@ -299,18 +293,19 @@
       </div>
     </details>
     <!-- ==================== END COMPARISON ==================== -->
-
   </div>
 
   <script>
     let chart = null;
     let barChart = null;
 
-    // Hardcoded presets
+    // -----------------------------------------------------------------
+    // PRESETS
+    // -----------------------------------------------------------------
     const presets = {
       klement: { initialInvestment: 1480000, years: 15, monthlyContribution: 20000, rate: 17, inflationRate: 6 },
-      sune:    { initialInvestment: 680000,  years: 17, monthlyContribution: 10000, rate: 20, inflationRate: 6 },
-      both:    { initialInvestment: 2165000, years: 25, monthlyContribution: 30000, rate: 20, inflationRate: 6 }
+      sune: { initialInvestment: 680000, years: 17, monthlyContribution: 11000, rate: 20, inflationRate: 6 },
+      both: { initialInvestment: 2165000, years: 25, monthlyContribution: 31000, rate: 20, inflationRate: 6 }
     };
 
     function loadPreset() {
@@ -328,7 +323,7 @@
     }
 
     function updateYearsDisplay(v) { document.getElementById('yearsLabel').textContent = `Years Invested (${v} Year${v>1?'s':''})`; }
-    function updateRateDisplay(v)   { document.getElementById('rateLabel').textContent = `Annual Growth Rate (${v}%)`; }
+    function updateRateDisplay(v) { document.getElementById('rateLabel').textContent = `Annual Growth Rate (${v}%)`; }
     function updateInflationRateDisplay(v){ document.getElementById('inflationRateLabel').textContent = `Inflation Rate (${v}%)`; }
 
     function formatNumber(num) { return 'R' + Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
@@ -341,37 +336,48 @@
     }
 
     // -----------------------------------------------------------------
-    // MAIN CALCULATOR (unchanged)
+    // PASSWORD PROTECTION – NOW HIDES ENTIRE FIELD AFTER UNLOCK
+    // -----------------------------------------------------------------
+    function checkPresetPassword(e) {
+      const pw = document.getElementById('presetPassword').value;
+      const presetContainer = document.getElementById('presetContainer');
+      const passwordContainer = document.getElementById('passwordContainer');
+
+      if (pw === '2580') {
+        presetContainer.classList.remove('hidden');
+        passwordContainer.classList.add('hidden'); // Hides label + input
+      } else if (e && e.key === 'Enter') {
+        alert('Incorrect password');
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // MAIN CALCULATOR
     // -----------------------------------------------------------------
     function calculate() {
-      const P   = parseFloat(document.getElementById('initialInvestment').value.replace(/[^0-9.]/g, '')) || 0;
-      const t   = parseFloat(document.getElementById('years').value) || 1;
+      const P = parseFloat(document.getElementById('initialInvestment').value.replace(/[^0-9.]/g, '')) || 0;
+      const t = parseFloat(document.getElementById('years').value) || 1;
       const PMT = parseFloat(document.getElementById('monthlyContribution').value.replace(/[^0-9.]/g, '')) || 0;
-      const r   = parseFloat(document.getElementById('rate').value) / 100;
-      const i   = parseFloat(document.getElementById('inflationRate').value) / 100;
-      const n   = 12;
+      const r = parseFloat(document.getElementById('rate').value) / 100;
+      const i = parseFloat(document.getElementById('inflationRate').value) / 100;
+      const n = 12;
       const monthlyExemption = 23800 / 12;
       const marginalRate = 0.45;
       const effectiveCgtRate = 0.18;
-
       const totalInvested = P + PMT * n * t;
-
       const futureValue = P * Math.pow(1 + r/n, n*t) + PMT * ((Math.pow(1 + r/n, n*t) - 1) / (r/n));
       const monthlyInterest = futureValue * (r/12);
       const totalRealValue = futureValue / Math.pow(1 + i, t);
       const monthlyRealInterest = monthlyInterest / Math.pow(1 + i, t);
-
       const capitalGain = Math.max(0, futureValue - totalInvested);
       const netGainAfterExclusion = Math.max(0, capitalGain - 40000);
       const cgtTax = netGainAfterExclusion * effectiveCgtRate;
       const postTaxTotal = futureValue - cgtTax;
       const postTaxRealTotal = postTaxTotal / Math.pow(1 + i, t);
-
       const taxableMonthlyInterest = Math.max(0, monthlyInterest - monthlyExemption);
       const taxOnMonthlyInterest = taxableMonthlyInterest * marginalRate;
       const postTaxMonthlyInterest = monthlyInterest - taxOnMonthlyInterest;
       const postTaxRealMonthlyInterest = postTaxMonthlyInterest / Math.pow(1 + i, t);
-
       const effectiveTaxPercent = futureValue > 0 ? (cgtTax / futureValue) * 100 : 0;
 
       document.getElementById('totalValue').textContent = formatNumber(futureValue);
@@ -510,7 +516,7 @@
     }
 
     // -----------------------------------------------------------------
-    // INTEREST COMPARISON - NOW USES MONTHLY COMPOUNDING BY DEFAULT
+    // INTEREST COMPARISON - WITH DIFFERENCE COLUMN
     // -----------------------------------------------------------------
     function calculateComparison() {
       const P = parseFloat(document.getElementById('compAmount').value.replace(/[^0-9.]/g, '')) || 0;
@@ -552,21 +558,24 @@
         const periods = y * periodsPerYear;
         const v1 = P * Math.pow(1 + rate1, periods);
         const v2 = P * Math.pow(1 + rate2, periods);
+        const diff = v2 - v1;
         tbody.innerHTML += `<tr>
           <td class="p-2 border border-gray-600 text-white">${y}</td>
           <td class="p-2 border border-gray-600 text-white">${formatNumber(v1)}</td>
           <td class="p-2 border border-gray-600 text-white">${formatNumber(v2)}</td>
+          <td class="p-2 border border-gray-600 text-white">${formatNumber(diff)}</td>
         </tr>`;
       }
 
-      // Always show final year
       if (years % step !== 0 || showAll) {
         const v1 = P * Math.pow(1 + rate1, totalPeriods);
         const v2 = P * Math.pow(1 + rate2, totalPeriods);
+        const diff = v2 - v1;
         tbody.innerHTML += `<tr>
           <td class="p-2 border border-gray-600 text-white">${years}</td>
           <td class="p-2 border border-gray-600 text-white">${formatNumber(v1)}</td>
           <td class="p-2 border border-gray-600 text-white">${formatNumber(v2)}</td>
+          <td class="p-2 border border-gray-600 text-white">${formatNumber(diff)}</td>
         </tr>`;
       }
     }
