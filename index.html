@@ -62,7 +62,7 @@
         <option value="none">Select a Preset</option>
         <option value="klement">👨🏻 Klement</option>
         <option value="sune">👩🏻 Sune</option>
-        <option value="sune">👧🏻 Ava</option>
+        <option value="ava">👧🏻 Ava</option>
         <option value="both">👫Total</option>
       </select>
     </div>
@@ -85,8 +85,8 @@
                class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-300" id="yearsLabel">📅 Years Invested (1 Year)</label>
-        <input type="range" id="years" value="1" min="1" max="50" step="1"
+        <label class="block text-sm font-medium text-gray-300" id="yearsLabel">⌛ Years Invested (1 Year)</label>
+        <input type="range" id="years" value="1" min="1" max="70" step="1"
                oninput="updateYearsDisplay(this.value)" class="mt-1 block w-full">
       </div>
       <div>
@@ -96,13 +96,13 @@
                class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-300" id="rateLabel">📅 Annual Growth Rate (15%)</label>
-        <input type="range" id="rate" value="17" min="4" max="35" step="1"
+        <label class="block text-sm font-medium text-gray-300" id="rateLabel">📆 Annual Growth Rate (14%)</label>
+        <input type="range" id="rate" value="14" min="4" max="35" step="1"
                oninput="updateRateDisplay(this.value)" class="mt-1 block w-full">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-300" id="inflationRateLabel">📉 Inflation Rate (6%)</label>
-        <input type="range" id="inflationRate" value="6" min="4" max="10" step="1"
+        <label class="block text-sm font-medium text-gray-300" id="inflationRateLabel">📉 Inflation Rate (5%)</label>
+        <input type="range" id="inflationRate" value="5" min="1" max="10" step="1"
                oninput="updateInflationRateDisplay(this.value)" class="mt-1 block w-full">
       </div>
       <button type="button" onclick="calculate()"
