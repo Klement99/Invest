@@ -57,18 +57,19 @@
 
     <!-- PRESET SECTION: HIDDEN UNTIL PASSWORD -->
     <div id="presetContainer" class="mb-4 hidden">
-      <label class="block text-sm font-medium text-gray-300">🔒 Select Preset</label>
+      <label class="block text-sm font-medium text-gray-300">🔓 Select Preset</label>
       <select id="presetSelect" onchange="loadPreset()" class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
         <option value="none">Select a Preset</option>
-        <option value="klement">Klement</option>
-        <option value="sune">Sune</option>
-        <option value="both">Both</option>
+        <option value="klement">👨🏻 Klement</option>
+        <option value="sune">👩🏻 Sune</option>
+        <option value="sune">👧🏻 Ava</option>
+        <option value="both">👫Total</option>
       </select>
     </div>
 
     <!-- PASSWORD INPUT: WILL BE HIDDEN AFTER UNLOCK -->
     <div id="passwordContainer" class="mb-4">
-      <label class="block text-sm font-medium text-gray-300">Unlock Presets</label>
+      <label class="block text-sm font-medium text-gray-300">🔒 Unlock Presets</label>
       <input type="password" id="presetPassword" placeholder="Enter password"
              class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
              onkeyup="checkPresetPassword(event)">
@@ -95,7 +96,7 @@
                class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-300" id="rateLabel">💲 Annual Growth Rate (15%)</label>
+        <label class="block text-sm font-medium text-gray-300" id="rateLabel">📅 Annual Growth Rate (15%)</label>
         <input type="range" id="rate" value="17" min="4" max="35" step="1"
                oninput="updateRateDisplay(this.value)" class="mt-1 block w-full">
       </div>
@@ -303,9 +304,10 @@
     // PRESETS
     // -----------------------------------------------------------------
     const presets = {
-      klement: { initialInvestment: 1480000, years: 15, monthlyContribution: 20000, rate: 17, inflationRate: 6 },
-      sune: { initialInvestment: 680000, years: 17, monthlyContribution: 11000, rate: 20, inflationRate: 6 },
-      both: { initialInvestment: 2165000, years: 25, monthlyContribution: 31000, rate: 20, inflationRate: 6 }
+      klement: { initialInvestment: 1800000, years: 15, monthlyContribution: 25000, rate: 14, inflationRate: 5 },
+      sune: { initialInvestment: 850000, years: 15, monthlyContribution: 12000, rate: 14, inflationRate: 5 },
+       ava: { initialInvestment: 40000, years: 15, monthlyContribution: 0, rate: 14, inflationRate: 5 },
+      both: { initialInvestment: 2500000, years: 15, monthlyContribution: 37000, rate: 14, inflationRate: 5 }
     };
 
     function loadPreset() {
